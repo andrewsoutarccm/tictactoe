@@ -1,0 +1,42 @@
+plugins {
+  id 'java'
+  id 'eclipse'
+  id 'application'
+}
+
+def getVersionName = { ->
+  def stdout = new ByteArrayOutputStream ()
+  exec {
+    commandLine 'git', 'describe', '--tags'
+    standardOutput = stdout
+  }
+  return stdout.toString ().trim ()
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Version': getVersionName ()
+  }
+}
+mainClassName = 'Main'
+
+run {
+  standardInput = System.in
+}
+
+repositories {
+  flatDir {
+    name 'fileRepo'
+    dirs '../../repo'
+  }
+}
+
+dependencies {
+  compile group: 'com.andrewsoutar.cmp128', name: 'utilities', version: '1.0'
+}
+
+uploadArchives {
+  repositories {
+    add project.repositories.fileRepo
+  }
+}

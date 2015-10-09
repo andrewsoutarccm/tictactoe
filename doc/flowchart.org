@@ -1,0 +1,146 @@
+#+name: flowchart-node-table
+| *node*            | *label*                         | *shape*       | *fillcolor* |
+|-------------------+---------------------------------+---------------+-------------|
+| S_start           | START                           | ellipse       | black       |
+| S_banner          | DISPLAY GAME BANNER             | parallelogram | green       |
+| S_names           | GET PLAYER NAMES                | parallelogram | green       |
+| S_symbol          | PLAYER ONE WANT X?              | diamond       | red         |
+| S_symbol_one_yes  | PLAYER ONE SYMBOL IS ASSIGNED X | rectangle     | blue        |
+| S_symbol_two_yes  | PLAYER TWO SYMBOL IS ASSIGNED O | rectangle     | blue        |
+| S_symbol_one_no   | PLAYER ONE SYMBOL IS ASSIGNED O | rectangle     | blue        |
+| S_symbol_two_no   | PLAYER TWO SYMBOL IS ASSIGNED X | rectangle     | blue        |
+| S_symbol_join     |                                 | circle        | brown       |
+| S_choose          | CHOOSE A SPACE (1-9)            | parallelogram | green       |
+| S_choice          | PLAYER CHOICE?                  | diamond       | red         |
+| S_choice_1_check  | IS SPACE ONE FILLED?            | diamond       | red         |
+| S_choice_1_update | UPDATE SPACE ONE WITH SYMBOL    | rectangle     | blue        |
+| S_choice_2_check  | IS SPACE TWO FILLED?            | diamond       | red         |
+| S_choice_2_update | UPDATE SPACE TWO WITH SYMBOL    | rectangle     | blue        |
+| S_choice_3_check  | IS SPACE THREE FILLED?          | diamond       | red         |
+| S_choice_3_update | UPDATE SPACE THREE WITH SYMBOL  | rectangle     | blue        |
+| S_choice_4_check  | IS SPACE FOUR FILLED?           | diamond       | red         |
+| S_choice_4_update | UPDATE SPACE FOUR WITH SYMBOL   | rectangle     | blue        |
+| S_choice_5_check  | IS SPACE FIVE FILLED?           | diamond       | red         |
+| S_choice_5_update | UPDATE SPACE FIVE WITH SYMBOL   | rectangle     | blue        |
+| S_choice_6_check  | IS SPACE SIX FILLED?            | diamond       | red         |
+| S_choice_6_update | UPDATE SPACE SIX WITH SYMBOL    | rectangle     | blue        |
+| S_choice_7_check  | IS SPACE SEVEN FILLED?          | diamond       | red         |
+| S_choice_7_update | UPDATE SPACE SEVEN WITH SYMBOL  | rectangle     | blue        |
+| S_choice_8_check  | IS SPACE EIGHT FILLED?          | diamond       | red         |
+| S_choice_8_update | UPDATE SPACE EIGHT WITH SYMBOL  | rectangle     | blue        |
+| S_choice_9_check  | IS SPACE NINE FILLED?           | diamond       | red         |
+| S_choice_9_update | UPDATE SPACE NINE WITH SYMBOL   | rectangle     | blue        |
+| S_choice_filled   | TELL USER SPACE FILLED          | parallelogram | green       |
+| S_choice_join     |                                 | circle        | brown       |
+| S_redisplay       | REDISPLAY BOARD WITH SYMBOLS    | parallelogram | green       |
+| S_update_turn     | UPDATE PLAYER TURN              | rectangle     | blue        |
+
+#+name: flowchart-rank
+| S_start           |                   |                   |
+| S_banner          |                   |                   |
+| S_names           |                   |                   |
+| S_symbol          |                   |                   |
+| S_symbol_one_yes  | S_symbol_one_no   |                   |
+| S_symbol_two_yes  | S_symbol_two_no   |                   |
+| S_symbol_join     |                   |                   |
+| S_choose          |                   |                   |
+| S_choice_filled   | S_choice          |                   |
+| S_choice_1_check  | S_choice_4_check  | S_choice_7_check  |
+| S_choice_2_check  | S_choice_5_check  | S_choice_8_check  |
+| S_choice_3_check  | S_choice_6_check  | S_choice_9_check  |
+| S_choice_1_update | S_choice_4_update | S_choice_7_update |
+| S_choice_2_update | S_choice_5_update | S_choice_8_update |
+| S_choice_3_update | S_choice_6_update | S_choice_9_update |
+| S_choice_join     |                   |                   |
+| S_redisplay       |                   |                   |
+| S_update_turn     |                   |                   |
+
+
+#+name: flowchart-graph
+| from              | to                | label |
+|-------------------+-------------------+-------|
+| S_start           | S_banner          |       |
+| S_banner          | S_names           |       |
+| S_names           | S_symbol          |       |
+| S_symbol          | S_symbol_one_yes  | Y     |
+| S_symbol_one_yes  | S_symbol_two_yes  |       |
+| S_symbol_two_yes  | S_symbol_join     |       |
+| S_symbol          | S_symbol_one_no   | N     |
+| S_symbol_one_no   | S_symbol_two_no   |       |
+| S_symbol_two_no   | S_symbol_join     |       |
+| S_symbol_join     | S_choose          |       |
+| S_choose          | S_choice          |       |
+| S_choice          | S_choice_1_check  | 1     |
+| S_choice_1_check  | S_choice_filled   | Y     |
+| S_choice_1_check  | S_choice_1_update | N     |
+| S_choice_1_update | S_choice_join     |       |
+| S_choice          | S_choice_2_check  | 2     |
+| S_choice_2_check  | S_choice_filled   | Y     |
+| S_choice_2_check  | S_choice_2_update | N     |
+| S_choice_2_update | S_choice_join     |       |
+| S_choice          | S_choice_3_check  | 3     |
+| S_choice_3_check  | S_choice_filled   | Y     |
+| S_choice_3_check  | S_choice_3_update | N     |
+| S_choice_3_update | S_choice_join     |       |
+| S_choice          | S_choice_4_check  | 4     |
+| S_choice_4_check  | S_choice_filled   | Y     |
+| S_choice_4_check  | S_choice_4_update | N     |
+| S_choice_4_update | S_choice_join     |       |
+| S_choice          | S_choice_5_check  | 5     |
+| S_choice_5_check  | S_choice_filled   | Y     |
+| S_choice_5_check  | S_choice_5_update | N     |
+| S_choice_5_update | S_choice_join     |       |
+| S_choice          | S_choice_6_check  | 6     |
+| S_choice_6_check  | S_choice_filled   | Y     |
+| S_choice_6_check  | S_choice_6_update | N     |
+| S_choice_6_update | S_choice_join     |       |
+| S_choice          | S_choice_7_check  | 7     |
+| S_choice_7_check  | S_choice_filled   | Y     |
+| S_choice_7_check  | S_choice_7_update | N     |
+| S_choice_7_update | S_choice_join     |       |
+| S_choice          | S_choice_8_check  | 8     |
+| S_choice_8_check  | S_choice_filled   | Y     |
+| S_choice_8_check  | S_choice_8_update | N     |
+| S_choice_8_update | S_choice_join     |       |
+| S_choice          | S_choice_9_check  | 9     |
+| S_choice_9_check  | S_choice_filled   | Y     |
+| S_choice_9_check  | S_choice_9_update | N     |
+| S_choice_9_update | S_choice_join     |       |
+| S_choice_filled   | S_choose          |       |
+| S_choice_join     | S_redisplay       |       |
+| S_redisplay       | S_update_turn     |       |
+
+
+#+name: graph-from-tables
+#+HEADER: :var nodes=flowchart-node-table rank=flowchart-rank graph=flowchart-graph
+#+BEGIN_SRC emacs-lisp :file flowchart.png :colnames yes :exports results :cmdline -Tpng -Gpage=11,8.5 -Gsplines=true
+  (org-babel-execute:dot
+   (concat
+        "digraph {\n"
+        "//rankdir=LR;\n" ;; remove comment characters '//' for horizontal layout; add for vertical layout
+        (mapconcat
+         (lambda (x)
+           (format "%s [label=\"%s\" shape=%s style=\"filled\" fillcolor=\"%s\"]"
+                           (car x)
+                           (nth 1 x)
+                           (if (string= "" (nth 2 x)) "box" (nth 2 x))
+                           (if (string= "" (nth 3 x)) "none" (nth 3 x))
+                           )) nodes "\n")
+        "\n"
+        (mapconcat
+         (lambda (x)
+           (concat "{rank=same "
+                   (mapconcat (lambda (x) x) x " ")
+                   "}"))
+         rank " -> ")
+        " [style=invis]\n"
+        (mapconcat
+         (lambda (x)
+           (format "%s -> %s [taillabel=\"%s\"]"
+                           (car x) (nth 1 x) (nth 2 x))) graph "\n")
+        "}\n") params)
+#+END_SRC
+
+#+RESULTS: graph-from-tables
+[[file:flowchart.png]]
+
