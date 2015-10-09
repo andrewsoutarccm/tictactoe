@@ -1,3 +1,8 @@
+/* Copyright (c) 2015 Andrew Soutar <andrew@andrewsoutar.com>
+ *
+ * See the COPYING file for details.
+ */
+
 import com.andrewsoutar.cmp128.Utilities;
 
 public class Piece {

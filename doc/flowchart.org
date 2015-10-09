@@ -1,3 +1,47 @@
+Copyright (c) 2015 Andrew Soutar
+
+Build by executing the code block `graph-from-tables' (below) using
+org-babel. You may need to load the `dot' language first, which you can do using
+the following command: (you only need to do this once per emacs session)
+
+#+name: load-org-babel-dot
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages 'org-babel-load-languages '((dot . t)))
+#+END_SRC
+
+#+name: graph-from-tables
+#+HEADER: :var nodes=flowchart-node-table rank=flowchart-rank graph=flowchart-graph
+#+BEGIN_SRC emacs-lisp :file flowchart.png :colnames yes :exports results :cmdline -Tpng -Gpage=11,8.5 -Gsplines=true
+  (org-babel-execute:dot
+   (concat
+        "digraph {\n"
+        "//rankdir=LR;\n" ;; remove comment characters '//' for horizontal layout; add for vertical layout
+        (mapconcat
+         (lambda (x)
+           (format "%s [label=\"%s\" shape=%s style=\"filled\" fillcolor=\"%s\"]"
+                           (car x)
+                           (nth 1 x)
+                           (if (string= "" (nth 2 x)) "box" (nth 2 x))
+                           (if (string= "" (nth 3 x)) "none" (nth 3 x))
+                           )) nodes "\n")
+        "\n"
+        (mapconcat
+         (lambda (x)
+           (concat "{rank=same "
+                   (mapconcat (lambda (x) x) x " ")
+                   "}"))
+         rank " -> ")
+        " [style=invis]\n"
+        (mapconcat
+         (lambda (x)
+           (format "%s -> %s [taillabel=\"%s\"]"
+                           (car x) (nth 1 x) (nth 2 x))) graph "\n")
+        "}\n") params)
+#+END_SRC
+
+#+RESULTS: graph-from-tables
+[[file:flowchart.png]]
+
 #+name: flowchart-node-table
 | *node*            | *label*                         | *shape*       | *fillcolor* |
 |-------------------+---------------------------------+---------------+-------------|
@@ -109,38 +153,3 @@
 | S_choice_filled   | S_choose          |       |
 | S_choice_join     | S_redisplay       |       |
 | S_redisplay       | S_update_turn     |       |
-
-
-#+name: graph-from-tables
-#+HEADER: :var nodes=flowchart-node-table rank=flowchart-rank graph=flowchart-graph
-#+BEGIN_SRC emacs-lisp :file flowchart.png :colnames yes :exports results :cmdline -Tpng -Gpage=11,8.5 -Gsplines=true
-  (org-babel-execute:dot
-   (concat
-        "digraph {\n"
-        "//rankdir=LR;\n" ;; remove comment characters '//' for horizontal layout; add for vertical layout
-        (mapconcat
-         (lambda (x)
-           (format "%s [label=\"%s\" shape=%s style=\"filled\" fillcolor=\"%s\"]"
-                           (car x)
-                           (nth 1 x)
-                           (if (string= "" (nth 2 x)) "box" (nth 2 x))
-                           (if (string= "" (nth 3 x)) "none" (nth 3 x))
-                           )) nodes "\n")
-        "\n"
-        (mapconcat
-         (lambda (x)
-           (concat "{rank=same "
-                   (mapconcat (lambda (x) x) x " ")
-                   "}"))
-         rank " -> ")
-        " [style=invis]\n"
-        (mapconcat
-         (lambda (x)
-           (format "%s -> %s [taillabel=\"%s\"]"
-                           (car x) (nth 1 x) (nth 2 x))) graph "\n")
-        "}\n") params)
-#+END_SRC
-
-#+RESULTS: graph-from-tables
-[[file:flowchart.png]]
-
