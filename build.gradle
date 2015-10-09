@@ -32,7 +32,7 @@ run {
 repositories {
   flatDir {
     name 'fileRepo'
-    dirs '../../repo'
+    dirs '../repo'
   }
 }
 
