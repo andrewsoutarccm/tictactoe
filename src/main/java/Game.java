@@ -47,6 +47,59 @@ public class Game {
         System.out.println ();
     }
 
+    private boolean differentPlayer (Player player, int i) {
+        return (!(board [i].getPlayer () == player));
+    }
+
+    private boolean win (Piece piece) {
+        Player player = piece.getPlayer ();
+        int spaceNumber = piece.getSpaceNumber (),
+            col = spaceNumber % 3,
+            row = spaceNumber / 3;
+
+        colBlock: {
+            for (int i = col; i < board.length; i += 3) {
+                if (differentPlayer (player, i)) {
+                    break colBlock;
+                }
+            }
+            return (true);
+        }
+
+        rowBlock: {
+            for (int i = 3 * row; i < (3 * (row + 1)); i++) {
+                if (differentPlayer (player, i)) {
+                    break rowBlock;
+                }
+            }
+            return (true);
+        }
+
+        if (col == row) {
+            mainDiagBlock: {
+                for (int i = 0; i < board.length; i += 4) {
+                    if (differentPlayer (player, i)) {
+                        break mainDiagBlock;
+                    }
+                }
+                return (true);
+            }
+        }
+
+        if ((row + col) == 2) {
+            secondaryDiagBlock: {
+                for (int i = 2; i < (board.length - 1); i += 2) {
+                    if (differentPlayer (player, i)) {
+                        break secondaryDiagBlock;
+                    }
+                }
+                return (true);
+            }
+        }
+
+        return (false);
+    }
+
     public Game (Scanner kbdScanner, Player [] players) {
         this.kbdScanner = kbdScanner;
         this.players = players;
@@ -58,9 +111,17 @@ public class Game {
     public void run () {
         for (int i = 0, player_no = getFirstPlayer (); i < 9;
              i++, player_no = ++player_no % players.length) {
+            Player player = players [player_no];
             printBoard ();
-            Piece piece = players [player_no].getPiece (board);
-            if (piece.win (board)) {
+            Piece piece = player.getPiece (board);
+            if (win (piece)) {
+                System.out.println ();
+                Utilities.print_bordered (new String [] {
+                        "",
+                        "    " + player.getName () + " wins this game!",
+                        ""
+                    });
+                player.incWins ();
                 return;
             }
         }
