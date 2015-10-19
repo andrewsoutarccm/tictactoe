@@ -9,6 +9,7 @@ the following command: (you only need to do this once per emacs session)
   (org-babel-do-load-languages 'org-babel-load-languages '((dot . t)))
 #+END_SRC
 
+From: http://orgmode.org/worg/org-tutorials/org-dot-diagrams.html
 #+name: graph-from-tables
 #+HEADER: :var nodes=flowchart-node-table rank=flowchart-rank graph=flowchart-graph
 #+BEGIN_SRC emacs-lisp :file flowchart.png :colnames yes :exports results :cmdline -Tpng -Gpage=11,8.5 -Gsplines=true
