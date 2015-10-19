@@ -64,12 +64,12 @@ artifacts {
 repositories {
   flatDir {
     name 'fileRepo'
-    dirs '../repo'
+    dirs '~/repo'
   }
 }
 
 dependencies {
-  compile group: 'com.andrewsoutar.cmp128', name: 'utilities', version: '1.0'
+  compile project (':utilities')
 }
 
 uploadArchives {
